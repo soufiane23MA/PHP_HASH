@@ -9,8 +9,8 @@
 	<form action="traitement.php?action=login" method="POST">
 		<label for="email">email</label>
 		<input type="email" id="email" name="email"><br>
-		<label for="pass1">Mot de passe</label>
-		<input type="password" id="pass1" name="pass1"><br>
+		<label for="password">Mot de passe</label>
+		<input type="password" id="password" name="password"><br>
 		<input type="submit" value="Enregistrer">
 	</form>
  </body>

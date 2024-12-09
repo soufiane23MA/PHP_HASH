@@ -15,8 +15,9 @@
 	<label for="pass1">Mot de passe</label>
 	<input type="password" id="pass1" name="pass1"><br>
 	<label for="pass2">Confirmer votre Mot de passe</label>
-	<input type="password" id="pass2" name="pass2">
-	<input type="submit" value="Enregistrer">
+	<input type="password" id="pass2" name="pass2"><br>
+	
+	<input type="submit" name="submit" value="Enregistrer">
 	</form>
 	
 </body>
