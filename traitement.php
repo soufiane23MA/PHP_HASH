@@ -70,16 +70,15 @@ if(isset($_GET["action"])){
 					$requete = $pdo->prepare("SELECT * FROM user WHERE email=:email");
 					$requete ->execute(["email"=> $email]);
 					$user = $requete->fetch();// récupere le resultat de la requête et la stockée dans la variable user 
-					var_dump($user);die;
 					if($user){
 						$hash =$user["password"];
 						if(password_verify($password,$hash)){
 							$_SESSION["user"] = $user;
 							header("location: home.php");
 						}else{
-							header("location:login.php");
-							echo"identifiant non enregistrer";
-						}
+								header("location:login.php");
+								echo"identifiant non enregistrer";
+							}
 					}
 				}
 				header("location:login.php");
