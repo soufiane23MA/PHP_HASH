@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 if(isset($_GET["action"])){
 	switch ($_GET["action"]){
@@ -7,7 +8,7 @@ if(isset($_GET["action"])){
 			//se connecter à la base de donnée, qu'on créra en avance)
 			//dsn, username et le password.
 			// si l'utilisateur a soumis son formulaire 
-			if($_POST["submit"]){
+			if( isset ($_POST["submit"])){
 				$pdo = new PDO("mysql:host=localhost;dbname=php_hash;charset=utf8","root","");
 				// filtrer la data utilisateur récuperées dans les  champs inputs.
 				$pseudo =filter_input(INPUT_POST,"pseudo",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -15,7 +16,7 @@ if(isset($_GET["action"])){
 				$pass1 =filter_input(INPUT_POST,"pass1",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 				$pass2 =filter_input(INPUT_POST,"pass2",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 				if($pseudo && $email && $pass1 && $pass2){
-					var_dump($email);die;
+					//var_dump($email);die;
 					// aprés virification que les filter marchent, 
 					$requete = $pdo->prepare("SELECT * FROM user WHERE email = :email");
 					$requete ->execute(["email"=>$email]);
@@ -55,7 +56,7 @@ if(isset($_GET["action"])){
 			}
 		break;
 		case "login":
-			if($_POST["submit"]){
+			if( isset ($_POST["submit"])){
 				//on se concécte à la base de données
 				$pdo = new PDO("mysql:host=localhost;dbname=php_hash;charset=utf8","root","");
 				//on filtre les data utilisateur soumise dans le formulaire
@@ -63,28 +64,42 @@ if(isset($_GET["action"])){
 				$password=filter_input(INPUT_POST,"password",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 				//si on a éffectivement une adresse mail et un mot de passe
 				//on prépare une requête pour récuperer la data utilisateur de la base de données
-				//pour la comparer a celle qui vien de soumis.
+				//pour la comparer a celle qui viens de soumis.
 				//vérification de l'empreinte numérique via password_verify() qui returne false or true
 				if($email && $password){
 					//var_dump("ok");die;
 					$requete = $pdo->prepare("SELECT * FROM user WHERE email=:email");
 					$requete ->execute(["email"=> $email]);
-					$user = $requete->fetch();// récupere le resultat de la requête et la stockée dans la variable user 
+					$user = $requete->fetch();
+					// récupere le resultat de la requête et la stockée dans la variable user
+					//on verifie les données récuperer 
 					if($user){
-						$hash =$user["password"];
+						//var_dump($user);die;
+						$hash = $user["password"];
+						//on compare le passeword soumis et celui enregistrer dans notre BD
 						if(password_verify($password,$hash)){
-							$_SESSION["user"] = $user;
-							header("location: home.php");
-						}else{
-								header("location:login.php");
-								echo"identifiant non enregistrer";
-							}
+							$_SESSION["user"] = $user;// rediriger le user vers la page d'accueil
+							header("location: home.php");exit;
+						}else{//si on a pas réussi a ouvrire la session, on le redirige vers la page de login pour résseiller
+								header("location:login.php");exit;
+								//echo"identifiant non enregistrer
+								}
 					}
-				}
-				header("location:login.php");
-				exit;
-			}
+				}	
+			} 
+		header("location:login.php");
 			break;
+		
+		case "profile" :
+			header("location :profile.php");
+			break ;
+			
+			case "logout":
+				unset($_SESSION["user"]);
+				header("location : home.php");
+				
+				break; 
+			
 	}
 };
 
