@@ -11,7 +11,7 @@
 		<input type="email" id="email" name="email"><br>
 		<label for="password">Mot de passe</label>
 		<input type="password" id="password" name="password"><br>
-		<input type="submit" value="Enregistrer">
+		<input type="submit"  name="submit" value="Enregistrer" >
 	</form>
  </body>
  </html>

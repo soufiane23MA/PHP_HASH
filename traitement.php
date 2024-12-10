@@ -41,7 +41,8 @@ if(isset($_GET["action"])){
 								"email"=>$email,
 							// attention le mot de passe doit être hasher: 
 							//pour ne pas avoir une emprunt numerique en claire dans la base de donnée.
-								"password"=> password_hash($pass1,PASSWORD_DEFAULT)]);
+								"password"=> password_hash($pass1,PASSWORD_DEFAULT)
+							]);
 									header("location:login.php"); exit;
 							}else{
 								// message pour informer l'utilisateur que 
@@ -51,10 +52,12 @@ if(isset($_GET["action"])){
 						}else{
 							//problème de saisi 
 						}
+						header("location:register.php");exit;
 					}// je redirige l'utilisateur vers le formulaire pour s'enregister
-					header("location:register.php");
+					
 			break;
 			case "login":
+				
 				if($_POST["submit"]){
 					//on se concécte à la base de données
 					$pdo = new PDO("mysql:host=localhost;dbname=php_hash;charset=utf8","root","");
@@ -66,18 +69,30 @@ if(isset($_GET["action"])){
 					//pour la comparer a celle qui vien de soumis.
 					//vérification de l'empreinte numérique via password_verify() qui returne false or true
 					if($email && $password){
+						var_dump("ok");die;
 						$requete = $pdo->prepare("SELECT * FROM user WHERE email=:email");
-						$requete ->execute(["email"=>$email]);
-						$user = $requete->fetch();// récupere le resultat de la requête
-				  var_dump($user);
+						$requete ->execute(["email"=> $email]);
+						$user = $requete->fetch();// récupere le resultat de la requête et la stockée dans la variable user 
+				    //var_dump($user);die;
+					}if($user){
+						$hash =$user["password"];
+						if(password_verify($password,$hash)){
+							$_SESSION["user"] = $user;
+							header("location: home.php");
+						}else{
+							header("location:login.php");
+							echo"identifiant non enregistrer";
+						}
 					}
 					}
-				}
-				header("location:login.php");exit;
-
+					header("location:login.php");
+					exit;
+					
 			break;
-			 
-		};
+			
+			};
+		}
+		
 
 	
 
