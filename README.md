@@ -46,31 +46,39 @@
    => Vérification de la session : Avant d'afficher certaines pages (comme le profil), je vérifie si l'utilisateur est connecté en testant si $_SESSION["user"] est définie. Cela 
      empêche l'accès à ces pages sans être connecté.<br>
      <h3>6- Base de Données</h3>
-   j'ai créé une table user pour stocker les informations des utilisateurs (pseudo, email, mot de passe). Chaque utilisateur a un identifiant unique (clé primaire id).
-   je vérifie par la suite l'existence de l'utilisateur : Lors de l'inscription, je vérifie si l'email existe déjà dans la base de données. Cela empêche les utilisateurs de s'inscrire 
+   J'ai créé une table user pour stocker les informations des utilisateurs (pseudo, email, mot de passe). Chaque utilisateur a un identifiant unique (clé primaire id).
+   Je vérifie par la suite l'existence de l'utilisateur : Lors de l'inscription, je vérifie si l'email existe déjà dans la base de données. Cela empêche les utilisateurs de s'inscrire 
    avec un email déjà utilisé.<br>
 <h3>7- Gestion des Erreurs</h3>
    => Messages d'erreur et redirection : Si un problème survient lors de l'inscription ou de la connexion (par exemple, des mots de passe non identiques ou un email déjà utilisé),je    
-   redirige l'utilisateur vers la page correspondante (inscription ou connexion) pour corriger l'erreur et retenter l'action qui voulé faire.
+    redirige l'utilisateur vers la page correspondante (inscription ou connexion) pour corriger l'erreur et retenter l'action qui voulé faire.
 <h3>8- Structure de l'Application</h3>
-  Modularité : Votre application est structurée en plusieurs fichiers PHP distincts pour gérer les différentes actions (inscription, connexion, déconnexion, profil). Cela rend le code 
-  plus lisible et facile à maintenir.
-  Formulaires HTML : Vous utilisez des formulaires HTML pour permettre à l'utilisateur de soumettre ses informations (pseudo, email, mot de passe) pour l'inscription et la connexion.
+   Pour plus de clareté et lisibilité les consignes des formateurs se base sur un découpage du projet en plusieurs fichiers PHP distincts pour gérer les différentes actions (inscription,    connexion, déconnexion, profil),cela rend le code facile à maintenir.
+  Il y'a également des formulaires HTML pour permettre à l'utilisateur de soumettre ses informations (pseudo, email, mot de passe) pour l'inscription et la connexion.
 <h3>9- Sécurisation des Formulaires</h3>
-Validation des mots de passe : Vous comparez les mots de passe (pass1 et pass2) pour vous assurer qu'ils sont identiques avant de les enregistrer. Vous imposez également une longueur minimale pour le mot de passe, ce qui renforce la sécurité.
-10. Déconnexion et Sécurisation de la Session
-unset() : Lors de la déconnexion, vous utilisez unset($_SESSION["user"]) pour supprimer les données de session de l'utilisateur et ainsi mettre fin à sa session active.
+  => Validation des mots de passe : je compare les mots de passe (pass1 et pass2) pour s'assurer qu'ils sont identiques avant de les enregistrer, et j'impose également une 
+    longueur minimale pour le mot de passe, (12 caractéres minimum) ce qui permet de renforcer la sécurité de l'application.
+<h3>10- Déconnexion et Sécurisation de la Session</h3>
+   unset() : Lors de la déconnexion, j'ai utilisé unset($_SESSION["user"]) pour supprimer les données de session de l'utilisateur et ainsi mettre fin à sa session active.
     
       
  
 
 <h2>🔧 Technologies utilisées</h2>
- 
-<h2>💡 Concepts clés abordés</h2>
- 
-<h2>📦 Installation</h2>
- 
+    1- PHP : pour le traitement des formulaires, la gestion des sessions, et la logique d'authentification.<br>
+    2- HTML : pour la structure des pages web et des formulaires.<br>
+    3- CSS : pour le style des pages (si utilisé).<br>
+    4- MySQL : pour la gestion des données utilisateur dans une base de données.<br>
+    5- PDO : pour la communication sécurisée avec la base de données.<br>
+    6- Sessions PHP : pour maintenir l'état de l'utilisateur connecté.<br>
+    7- Fonctions de sécurisation PHP : comme password_hash(), password_verify(), et filter_input() pour protéger les données.<br>
+    
+    
 <h2>✨ Démonstration</h2>
+   ![image](https://github.com/user-attachments/assets/46e1d8da-ed44-42fe-89c8-69b0b5ef9f35)<br>
+   ![image](https://github.com/user-attachments/assets/1ecc384f-5791-4e23-bf6b-94f0ca9bb6ef)
+
+
  
 
 <h2>📚 Ressources</h2>
